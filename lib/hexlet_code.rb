@@ -2,7 +2,7 @@
 
 require_relative "hexlet_code/version"
 
-module HexletCode
+module HexletCode # rubocop:disable Style/Documentation
   class Error < StandardError; end
-  # Your code goes here...
+  autoload(:Tag, "hexlet_code/tag.rb")
 end
