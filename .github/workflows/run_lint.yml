@@ -11,15 +11,14 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  lint:
-    name: runner / linters
+    lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out code
-        uses: actions/checkout@v1
-      - name: rubocop
-        uses: reviewdog/action-rubocop@v1
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@ee2113536afb7f793eed4ce60e8d3b26db912da4 # v1.127.0
         with:
-          rubocop_version: gemfile
-          rubocop_extensions: rubocop-rails:gemfile rubocop-rspec:gemfile
-          github_token: ${{ secrets.github_token }}
+          bundler-cache: true
+      - name: Lint Ruby files
+        run: bundle exec rubocop
