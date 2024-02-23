@@ -9,6 +9,10 @@ module HexletCode # rubocop:disable Style/Documentation
 
   def self.form_for(user, options = {}, &block) # rubocop:disable Lint/UnusedMethodArgument
     @user = user
+  attr_accessor :user
+
+  def self.form_for(user, options = {}, &block) # rubocop:disable Lint/UnusedMethodArgument
+    @user = user
     url = options.fetch(:url, "#")
     output = "<form action=\"#{url}\" method=\"post\">"
     output << yield(self) if block_given?
