@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class FormBuilder # rubocop:disable Style/Documentation
-  attr_accessor :form_body, :url
+  attr_accessor :form_body, :url, :inputs
 
   def initialize(url)
-    @form_body = []
+    @form_body = {}
     @url = url
+    @inputs = []
   end
 
   def input(name, attributes = {})
@@ -14,6 +15,10 @@ class FormBuilder # rubocop:disable Style/Documentation
     attributes.each do |k, v|
       input[k] = v
     end
-    @form_body << input
+    @inputs << input
+  end
+
+  def submit(value = "Save")
+    @form_body.merge!(submit: value)
   end
 end
