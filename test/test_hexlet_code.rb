@@ -26,7 +26,7 @@ class TestHexletCode < Minitest::Test
     user = User.new name: "rob", job: "hexlet", gender: "m"
     result = HexletCode.form_for(user) do |f|
       f.input :name, class: "user-input"
-      f.input :job, as: :text, rows: 50, cols: 50
+      f.input :job, as: :text, cols: 50, rows: 50
       f.submit "Wow"
     end
     expected = "<form action=\"#\" method=\"post\"><label for=\"name\">Name</label>"

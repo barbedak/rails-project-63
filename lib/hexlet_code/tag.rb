@@ -1,26 +1,39 @@
 # frozen_string_literal: true
 
-module Tag # rubocop:disable Style/Documentation
-  def build(name, options = {}) # rubocop:disable Metrics/MethodLength
-    case name
-    when "br"
-      "<br>"
-    when "div"
-      "<div></div>"
-    when "img"
-      path = options.fetch(:src, false)
-      "<img src=\"#{path}\""
-    when "input"
-      type = options.fetch(:type, false)
-      value = options.fetch(:value, false)
-      "<input type=\"#{type}\" value=\"#{value}\""
-    when "label"
-      fr = options.fetch(:for, false)
-      if fr
-        "<label for=\"#{fr}\">#{yield}</label>"
-      else
-        "<label>#{yield}</label>"
-      end
+# generate tag
+module Tag
+  SINGLE_TAGS = %w[img br input submit].freeze
+
+  def build_img(path)
+    "<img src=\"#{path}\""
+  end
+
+  def self.build_label_tag(target)
+    "<label for=\"#{target}\">#{target.capitalize}</label>"
+  end
+
+  def self.build_single_tag(tag_name, options)
+    build_options = options.map { |key, value| "#{key}=\"#{value}\"" }.join(" ")
+    if options.key?(:as)
+      build_double_tag("textarea", options)
+    else
+      result = options[:type] == "submit" ? "" : build_label_tag(options[:name])
+      build_options = [" ", build_options].join if build_options.length.positive?
+      [result, "<#{tag_name}", build_options.squeeze(" "), ">"].join
+    end
+  end
+
+  def self.build_double_tag(tag_name, options)
+    build_options = options.map { |key, value| "#{key}=\"#{value}\"" unless %i[type as value].include?(key) }.join(" ")
+    build_options = [" ", build_options].join if build_options.length.positive?
+    ["<#{tag_name}", build_options.squeeze(" "), ">", options[:value], "</#{tag_name}>"].join
+  end
+
+  def self.build(tag_name, options = {})
+    if SINGLE_TAGS.include?(tag_name.to_s)
+      build_single_tag(tag_name, options)
+    else
+      build_double_tag(tag_name, options)
     end
   end
 end

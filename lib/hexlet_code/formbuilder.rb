@@ -1,24 +1,27 @@
 # frozen_string_literal: true
 
-class FormBuilder # rubocop:disable Style/Documentation
-  attr_accessor :form_body, :url, :inputs
+# make form body
+class FormBuilder
+  attr_accessor :form_body, :url, :user, :tags
 
-  def initialize(url)
-    @form_body = {}
+  def initialize(url, user)
     @url = url
-    @inputs = []
+    @tags = []
+    @user = user
   end
 
   def input(name, attributes = {})
     input = {}
     input[:name] = name
+    input[:type] = "text"
+    input[:value] = @user.public_send(name)
     attributes.each do |k, v|
       input[k] = v
     end
-    @inputs << input
+    @tags << { input: input }
   end
 
   def submit(value = "Save")
-    @form_body.merge!(submit: value)
+    @tags << { input: { type: "submit", value: value } }
   end
 end
