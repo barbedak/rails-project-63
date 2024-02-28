@@ -16,24 +16,35 @@ If bundler is not being used to manage dependencies, install the gem by executin
 ## Usage
 
 use
-`
-user = User.new name: 'rob', job: 'hexlet', gender: 'm'
-HexletCode.form_for(user, url: '/profile', method: :get, class: 'hexlet-form') do |f|
-    f.input :name, class: 'user-input'
-    f.input :job, as: :text, cols: 50, rows: 50
-    f.submit 'Wow'
-end
-`
+
+`user = User.new name: 'rob', job: 'hexlet'`
+
+`HexletCode.form_for(user, url: '/profile', method: :get, class: 'hexlet-form') do |f|`
+
+`f.input :name, class: 'user-input'`
+
+`f.input :job, as: :text, cols: 50, rows: 50`
+
+`f.submit 'Wow'`
+
+`end`
+
 to generate html
-`
-<form action="/profile" method="get" class="hexlet-form">
-    <label for="name">Name</label>
-    <input name="name" type="text" value="rob" class="user-input">
-    <label for="job">Job</label>
-    <textarea name="job" cols="50" rows="50">hexlet</textarea>
-    <input type="submit" value="Wow">
-</form>
-`
+
+`<form  action="/profile"  method="get"  class="hexlet-form">`
+
+`<label  for="name">Name</label>`
+
+`<input  name="name"  type="text"  value="rob"  class="user-input">`
+
+`<label  for="job">Job</label>`
+
+`<textarea  name="job"  cols="50"  rows="50">hexlet</textarea>`
+
+`<input  type="submit"  value="Wow">`
+
+`</form>`
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
