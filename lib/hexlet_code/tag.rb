@@ -9,20 +9,20 @@ module Tag
   end
 
   def self.build_single_tag(tag_name, options)
-    build_options = options.map { |key, value| "#{key}=\"#{value}\"" }.join(" ")
+    build_options = options.map { |key, value| "#{key}=\"#{value}\"" }.join(' ')
     if options.key?(:as)
-      [build_label_tag(options[:name]), build_double_tag("textarea", options)].join
+      [build_label_tag(options[:name]), build_double_tag('textarea', options)].join
     else
-      result = options[:type] == "submit" ? "" : build_label_tag(options[:name])
-      build_options = [" ", build_options].join if build_options.length.positive?
-      [result, "<#{tag_name}", build_options.squeeze(" "), ">"].join
+      result = options[:type] == 'submit' ? '' : build_label_tag(options[:name])
+      build_options = [' ', build_options].join if build_options.length.positive?
+      [result, "<#{tag_name}", build_options.squeeze(' '), '>'].join
     end
   end
 
   def self.build_double_tag(tag_name, options)
-    build_options = options.map { |key, value| "#{key}=\"#{value}\"" unless %i[type as value].include?(key) }.join(" ")
-    build_options = [" ", build_options].join if build_options.length.positive?
-    ["<#{tag_name}", build_options.squeeze(" "), ">", options[:value], "</#{tag_name}>"].join
+    build_options = options.map { |key, value| "#{key}=\"#{value}\"" unless %i[type as value].include?(key) }.join(' ')
+    build_options = [' ', build_options].join if build_options.length.positive?
+    ["<#{tag_name}", build_options.squeeze(' '), '>', options[:value], "</#{tag_name}>"].join
   end
 
   def self.build(tag_name, options = {})

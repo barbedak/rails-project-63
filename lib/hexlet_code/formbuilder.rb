@@ -12,26 +12,26 @@ class FormBuilder
 
   def prepare_options(options)
     opts = {}
-    opts[:action] = options.fetch(:url, "#")
-    opts[:method] = options.fetch(:method, "post")
+    opts[:action] = options.fetch(:url, '#')
+    opts[:method] = options.fetch(:method, 'post')
     options.each do |key, value|
       opts[key] = value
     end
-    opts.map { |key, value| "#{key}=\"#{value}\"" unless key == :url }.join(" ").strip
+    opts.map { |key, value| "#{key}=\"#{value}\"" unless key == :url }.join(' ').strip
   end
 
   def input(name, attributes = {})
     input = {}
     input[:name] = name
-    input[:type] = "text"
+    input[:type] = 'text'
     input[:value] = @user.public_send(name)
     attributes.each do |k, v|
       input[k] = v
     end
-    @tags << { input: input }
+    @tags << { input: }
   end
 
-  def submit(value = "Save")
-    @tags << { input: { type: "submit", value: value } }
+  def submit(value = 'Save')
+    @tags << { input: { type: 'submit', value: } }
   end
 end

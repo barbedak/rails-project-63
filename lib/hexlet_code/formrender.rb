@@ -2,7 +2,7 @@
 
 # render form
 class FormRender
-  autoload(:Tag, "hexlet_code/tag")
+  autoload(:Tag, 'hexlet_code/tag')
   attr_accessor :builded_form, :user
 
   def initialize(user, builded_form)
@@ -11,11 +11,11 @@ class FormRender
   end
 
   def render_html
-    result = "<form #{@builded_form.form_options}>".squeeze(" ")
+    result = "<form #{@builded_form.form_options}>".squeeze(' ')
     @builded_form.tags.each do |field|
       k, v = field.first
       result << Tag.build(k, v)
     end
-    result << "</form>"
+    result << '</form>'
   end
 end
