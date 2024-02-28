@@ -4,10 +4,6 @@
 module Tag
   SINGLE_TAGS = %w[img br input submit].freeze
 
-  def build_img(path)
-    "<img src=\"#{path}\""
-  end
-
   def self.build_label_tag(target)
     "<label for=\"#{target}\">#{target.capitalize}</label>"
   end

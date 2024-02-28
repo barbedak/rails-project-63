@@ -11,8 +11,7 @@ class FormRender
   end
 
   def render_html
-    result = "<form action=\"#{@builded_form.url}\" method=\"post\">"
-    puts @builded_form.inspect
+    result = "<form #{@builded_form.form_options}>".squeeze(" ")
     @builded_form.tags.each do |field|
       k, v = field.first
       result << Tag.build(k, v)

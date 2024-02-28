@@ -2,12 +2,22 @@
 
 # make form body
 class FormBuilder
-  attr_accessor :form_body, :url, :user, :tags
+  attr_accessor :form_body, :user, :tags, :form_options
 
-  def initialize(url, user)
-    @url = url
-    @tags = []
+  def initialize(user, options)
     @user = user
+    @tags = []
+    @form_options = prepare_options(options)
+  end
+
+  def prepare_options(options)
+    opts = {}
+    opts[:action] = options.fetch(:url, "#")
+    opts[:method] = options.fetch(:method, "post")
+    options.each do |key, value|
+      opts[key] = value
+    end
+    opts.map { |key, value| "#{key}=\"#{value}\"" unless key == :url }.join(" ").strip
   end
 
   def input(name, attributes = {})
