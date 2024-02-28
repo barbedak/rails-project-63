@@ -11,7 +11,7 @@ module Tag
   def self.build_single_tag(tag_name, options)
     build_options = options.map { |key, value| "#{key}=\"#{value}\"" }.join(" ")
     if options.key?(:as)
-      build_double_tag("textarea", options)
+      [build_label_tag(options[:name]), build_double_tag("textarea", options)].join
     else
       result = options[:type] == "submit" ? "" : build_label_tag(options[:name])
       build_options = [" ", build_options].join if build_options.length.positive?

@@ -30,7 +30,7 @@ class TestHexletCode < Minitest::Test
       f.submit "Wow"
     end
     expected = "<form action=\"/profile\" method=\"get\" class=\"hexlet-form\"><label for=\"name\">Name</label>"
-    expected += "<input name=\"name\" type=\"text\" value=\"rob\" class=\"user-input\">"
+    expected += "<input name=\"name\" type=\"text\" value=\"rob\" class=\"user-input\"><label for=\"job\">Job</label>"
     expected += "<textarea name=\"job\" cols=\"50\" rows=\"50\">hexlet</textarea><input type=\"submit\" value=\"Wow\"></form>" # rubocop:disable Layout/LineLength
     assert_match(expected, result)
   end
