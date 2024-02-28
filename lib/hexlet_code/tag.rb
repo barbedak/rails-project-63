@@ -5,7 +5,7 @@ module Tag
   SINGLE_TAGS = %w[img br input submit].freeze
 
   def self.build_label_tag(target)
-    "<label for=\"#{target}\">#{target.capitalize}</label>"
+    ['<label for="', target, '">', target.capitalize, '</label>'].join
   end
 
   def self.build_single_tag(tag_name, options)

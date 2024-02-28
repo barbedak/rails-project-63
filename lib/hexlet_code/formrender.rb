@@ -11,7 +11,8 @@ class FormRender
   end
 
   def render_html
-    result = "<form #{@builded_form.form_options}>".squeeze(' ')
+    result = ['<form', @builded_form.form_options].join(' ').squeeze(' ')
+    result = [result, '>'].join
     @builded_form.tags.each do |field|
       k, v = field.first
       result << Tag.build(k, v)
