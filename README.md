@@ -17,33 +17,26 @@ If bundler is not being used to manage dependencies, install the gem by executin
 
 use
 
-`user = User.new name: 'rob', job: 'hexlet'`
-
-`HexletCode.form_for(user, url: '/profile', method: :get, class: 'hexlet-form') do |f|`
-
-`f.input :name, class: 'user-input'`
-
-`f.input :job, as: :text, cols: 50, rows: 50`
-
-`f.submit 'Wow'`
-
-`end`
+```ruby
+user = User.new name: 'rob', job: 'hexlet'
+HexletCode.form_for(user, url: '/profile', method: :get, class: 'hexlet-form') do |f|
+  f.input :name, class: 'user-input'
+  f.input :job, as: :text, cols: 50, rows: 50
+  f.submit 'Wow'
+end
+```
 
 to generate html
 
-`<form  action="/profile"  method="get"  class="hexlet-form">`
-
-`<label  for="name">Name</label>`
-
-`<input  name="name"  type="text"  value="rob"  class="user-input">`
-
-`<label  for="job">Job</label>`
-
-`<textarea  name="job"  cols="50"  rows="50">hexlet</textarea>`
-
-`<input  type="submit"  value="Wow">`
-
-`</form>`
+```
+<form  action="/profile"  method="get"  class="hexlet-form">
+  <label  for="name">Name</label>
+  <input  name="name"  type="text"  value="rob"  class="user-input">
+  <label  for="job">Job</label>
+  <textarea  name="job"  cols="50"  rows="50">hexlet</textarea>
+  <input  type="submit"  value="Wow">
+</form>
+```
 
 ## Development
 

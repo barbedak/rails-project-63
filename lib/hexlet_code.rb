@@ -2,13 +2,11 @@
 
 require_relative 'hexlet_code/version'
 
-# make form from users params
 module HexletCode
   class Error < StandardError; end
   autoload(:Tag, 'hexlet_code/tag')
-  autoload(:FormBuilder, 'hexlet_code/formbuilder')
-  autoload(:FormRender, 'hexlet_code/formrender')
-  attr_accessor :user
+  autoload(:FormBuilder, 'hexlet_code/form_builder')
+  autoload(:FormRender, 'hexlet_code/form_render')
 
   def self.form_for(user, options = {}, &)
     builded_form = FormBuilder.new(user, options)

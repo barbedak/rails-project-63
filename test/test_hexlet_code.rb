@@ -26,12 +26,12 @@ class TestHexletCode < Minitest::Test
     user = User.new name: 'rob', job: 'hexlet', gender: 'm'
     result = HexletCode.form_for(user, url: '/profile', method: :get, class: 'hexlet-form') do |f|
       f.input :name, class: 'user-input'
-      f.input :job, as: :text, cols: 50, rows: 50
+      f.input :job, as: :text, rows: 50
       f.submit 'Wow'
     end
     expected = '<form action="/profile" method="get" class="hexlet-form"><label for="name">Name</label>'
     expected += '<input name="name" type="text" value="rob" class="user-input"><label for="job">Job</label>'
-    expected += '<textarea name="job" cols="50" rows="50">hexlet</textarea>'
+    expected += '<textarea name="job" cols="20" rows="50">hexlet</textarea>'
     expected += '<input type="submit" value="Wow"></form>'
     assert_match(expected, result)
   end
