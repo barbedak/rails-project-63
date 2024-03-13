@@ -3,10 +3,10 @@
 module HexletCode
   class FormRender
     autoload(:Tag, 'hexlet_code/tag')
-    attr_accessor :builded_form, :user
+    attr_accessor :builded_form, :entity
 
-    def initialize(user, builded_form)
-      @user = user
+    def initialize(entity, builded_form)
+      @entity = entity
       @builded_form = builded_form
     end
 

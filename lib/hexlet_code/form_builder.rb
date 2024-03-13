@@ -3,10 +3,10 @@
 module HexletCode
   class FormBuilder
     autoload(:StringInput, 'hexlet_code/string_input')
-    attr_accessor :form_body, :user, :tags, :form_options
+    attr_accessor :form_body, :entity, :tags, :form_options
 
-    def initialize(user, options)
-      @user = user
+    def initialize(entity, options)
+      @entity = entity
       @tags = []
       @form_options = prepare_options(options)
     end
@@ -22,7 +22,7 @@ module HexletCode
         tag_name = 'input'
         options[:type] = 'text'
       end
-      options[:value] = @user.public_send(name)
+      options[:value] = @entity.public_send(name)
       options.merge!(attributes) { |_, old, _| old }
       @tags << StringInput.new(tag_name, options)
     end
