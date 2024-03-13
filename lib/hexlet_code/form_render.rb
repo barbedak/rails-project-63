@@ -14,7 +14,7 @@ module HexletCode
       form_options = @builded_form.form_options.map { |key, value| "#{key}=\"#{value}\"" }.join(' ').strip
       result = ['<form', form_options].join(' ').squeeze(' ')
       result = [result, '>'].join
-      @builded_form.tags.each do |field|
+      @builded_form.inputs.each do |field|
         result = [result, field.html_tag].join
       end
       result << '</form>'
