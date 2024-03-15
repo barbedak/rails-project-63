@@ -3,21 +3,27 @@
 module HexletCode
   class FormRender
     autoload(:Tag, 'hexlet_code/tag')
-    attr_accessor :builded_form, :entity
+    attr_reader :builded_form
 
-    def initialize(entity, builded_form)
-      @entity = entity
+    def initialize(builded_form)
       @builded_form = builded_form
     end
 
     def render_html
-      form_options = @builded_form.form_options.map { |key, value| "#{key}=\"#{value}\"" }.join(' ').strip
+      submit = @builded_form.form[:submit]
+      form_options = @builded_form.form[:form_options].map { |key, value| "#{key}=\"#{value}\"" }.join(' ').strip
       result = ['<form', form_options].join(' ').squeeze(' ')
-      result = [result, '>'].join
-      @builded_form.inputs.each do |field|
-        result = [result, field.html_tag].join
+      result = [result, '>', render_fields].join
+      result = [result, submit.html_tag].join if submit
+      [result, '</form>'].join
+    end
+
+    def render_fields
+      result = ''
+      @builded_form.form[:inputs].each do |field|
+        result = [result, field.add_label, field.html_tag].join
       end
-      result << '</form>'
+      result
     end
   end
 end

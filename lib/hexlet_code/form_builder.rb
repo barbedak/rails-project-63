@@ -2,50 +2,37 @@
 
 module HexletCode
   class FormBuilder
-    autoload(:StringInput, 'hexlet_code/string_input')
-    attr_accessor :form_body, :entity, :inputs, :form_options, :method, :action, :submits
+    autoload(:Inputs, 'hexlet_code/inputs')
+    attr_reader :form
 
     def initialize(entity, options)
       @entity = entity
-      @action = options.fetch(:action, '#')
+      @action = options.fetch(:url, '#')
       @method = options.fetch(:method, 'post')
-      @inputs = []
-      @submits = nil
-      @form_options = { method: 'post' }.merge(options.except(:url))
+      @form = {
+        inputs: [],
+        submit: nil,
+        form_options: { action: @action, method: @method }.merge(options.except(:url))
+      }
     end
 
     def input(name, attributes = {})
-      options = {}
-      options[:name] = name.to_s
+      options = { name: name.to_s, type: '', value: @entity.public_send(name) }
       if attributes.key?(:as)
-        tag_name = 'textarea'
         options[:cols] = attributes.fetch(:cols, 20)
         options[:rows] = attributes.fetch(:rows, 40)
+        options.merge!(attributes) { |_, old, _| old }
+        input = Inputs::TextInput.new(options)
       else
-        tag_name = 'input'
         options[:type] = 'text'
+        options.merge!(attributes) { |_, old, _| old }
+        input = Inputs::StringInput.new(options)
       end
-      options[:value] = @entity.public_send(name)
-      options.merge!(attributes) { |_, old, _| old }
-      @inputs << StringInput.new(tag_name, options)
+      @form[:inputs] << input
     end
 
     def submit(value = 'Save')
-      options = {}
-      options[:type] = 'submit'
-      options[:value] = value
-      @inputs << StringInput.new('input', options)
-    end
-
-    private
-
-    def prepare_options(options)
-      opts = {}
-      opts[:action] = options.fetch(:url, '#')
-      opts[:method] = options.fetch(:method, 'post')
-      opts.merge!(options)
-      opts.delete(:url)
-      opts
+      @form[:submit] = Inputs::StringInput.new({ type: 'submit', value: })
     end
   end
 end
