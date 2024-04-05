@@ -2,7 +2,7 @@
 
 module HexletCode
   class FormBuilder
-    autoload(:Inputs, 'hexlet_code/inputs')
+    autoload(:Inputs, 'hexlet_code/inputs.rb')
     attr_reader :form
 
     def initialize(entity, options)
