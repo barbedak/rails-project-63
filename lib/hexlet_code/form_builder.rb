@@ -5,6 +5,8 @@ module HexletCode
     autoload(:Inputs, 'hexlet_code/inputs.rb')
     attr_reader :form
 
+    EXCLUDED_KEYS = [:as].freeze
+
     def initialize(entity, options)
       @entity = entity
       @action = options.fetch(:url, '#')
@@ -18,16 +20,10 @@ module HexletCode
 
     def input(name, attributes = {})
       options = { name: name.to_s, type: '', value: @entity.public_send(name) }
-      if attributes.key?(:as)
-        options[:cols] = attributes.fetch(:cols, 20)
-        options[:rows] = attributes.fetch(:rows, 40)
-        options.merge!(attributes) { |_, old, _| old }
-        input = Inputs::TextInput.new(options)
-      else
-        options[:type] = 'text'
-        options.merge!(attributes) { |_, old, _| old }
-        input = Inputs::StringInput.new(options)
-      end
+      options[:type] = attributes[:as] || 'string'
+      attributes = attributes.reject { |key| EXCLUDED_KEYS.include?(key) }
+      options.merge!(attributes) { |_, old, _| old }
+      input = "HexletCode::Inputs::#{options[:type].capitalize}Input".constantize.new(options)
       @form[:inputs] << input
     end
 
